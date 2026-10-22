@@ -1,0 +1,34 @@
+ @if (event) {
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{event.title}}</h5>
+          <p class="card-text">{{event.description}}</p>
+          <p class="card-text">📍 {{event.location}}</p>
+          <p class="card-text">📅 {{event.date}}</p>
+          <p class="card-text">
+            @if (event.price == 0) {
+              <span class="badge bg-success">
+                Gratuit
+              </span>
+            } @else {
+              {{ event.price }} DT
+            }
+          </p>
+          <p class="card-text">
+            @if (event.nbPLaces > 0) {
+              <span class="badge bg-success">
+                {{ event.nbPLaces }} places
+              </span>
+            } @else {
+              <span class="badge bg-danger">
+                Complet
+              </span>
+            }
+          </p>
+        </div>
+      </div>
+    } @else {
+      <div class="alert alert-danger" role="alert">
+        Event not found!
+      </div>
+    }

@@ -1,0 +1,35 @@
+<h2>{{ title }}</h2>
+
+<hr>
+
+<p>{{ name() }}</p>
+<input class="form-control" type="text" placeholder="choose color" [(ngModel)]="color">
+<input class="form-control" type="text" placeholder="search by Name" [(ngModel)]="searchName">
+
+<table class="table" border="1">
+  <tr>
+    <th>ID</th>
+    <th>Produit</th>
+    <th>Prix</th>
+    <th>Quantité</th>
+    <th>Likes</th>
+    <th>Actions</th>
+  </tr>
+
+  @for (p of search(); track p.id) {
+    <tr>
+      <td>{{ p.id }}</td>
+      <td>{{ p.title }}</td>
+      <td>{{ p.price }} DT</td>
+      <td>{{ p.Qunatity }}</td>
+      <td>{{ p.likes }}</td>
+      <td>
+        <button (click)="like(p.id)" class="btn btn-secondary">Like</button>
+        <button [disabled]="p.Qunatity===0" (click)="buy(p.id)" class="btn btn-info">buy</button>
+
+      </td>
+    </tr>
+
+  }
+</table>
+<p [style.backgroundColor]="color()">PropertyBinding</p>
