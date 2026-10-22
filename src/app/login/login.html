@@ -1,0 +1,49 @@
+
+   <label>Login</label>
+   <input class="form-control" type="text" [formControl]="l">
+
+   <label>password</label>
+   <input class="form-control" type="password" [formControl]="pwd">
+
+   <button class="btn btn-info" (click)="save()"  [disabled]="l.invalid || pwd.invalid">save</button>
+
+
+<form [formGroup]="loginForm">
+    <div class="form-group">
+    <label>name</label>
+    <input type="text" class="form-control" placeholder="Enter name" formControlName="name">
+  </div>
+
+  @if (loginForm.controls['name'].invalid && loginForm.controls['name'].touched) {
+  <div class="alert alert-danger">
+    @if (loginForm.controls['name'].errors?.['required']){
+      <p>login est obligatoire</p>
+    }
+    @if (loginForm.controls['name'].errors?.['minlength']){
+      <p> login doit contenir au moins 3 caractères</p>
+    }
+    </div>
+    }
+
+
+  <div class="form-group">
+    <label>Email</label>
+    <input type="email" class="form-control" placeholder="Enter email" formControlName="email">
+  </div>
+    <div class="form-group">
+    <label>age</label>
+    <input type="number" class="form-control" placeholder="Enter age" formControlName="age">
+  </div>
+
+    <div class="form-group">
+    <label>telephone</label>
+    <input type="text" class="form-control" placeholder="Enter telephone" formControlName="telephone">
+  </div>
+
+    <div class="form-group">
+    <label>adresse</label>
+    <input type="text" class="form-control" placeholder="Enter adresse" formControlName="adresse">
+  </div>
+
+  <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Submit</button>
+</form>
