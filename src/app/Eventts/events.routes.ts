@@ -11,4 +11,17 @@ export const EventRoute: Routes = [
   {path : 'detail/:id' , loadComponent: () =>
     import('./detail-event/detail-event').then(m => m.DetailEvent)
   },
+   {
+    path : 'add',
+    loadComponent: () =>
+      import('./event-add/event-add')
+        .then(m => m.EventAdd)
+  },
+
+  {
+    path : 'update/:id',
+    loadComponent: () =>
+    import('./event-add/event-add')
+        .then(m => m.EventAdd)
+  }
 ]

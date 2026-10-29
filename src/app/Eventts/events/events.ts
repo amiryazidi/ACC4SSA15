@@ -1,6 +1,7 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { EventM } from '../../models/event-m';
+import { EventsService } from '../../service/events-service';
 
 @Component({
   selector: 'app-events',
@@ -10,9 +11,27 @@ import { EventM } from '../../models/event-m';
 })
 export class Events {
 
-  Events = signal<EventM[]>([
-    {id:1,title:'workshop Angular',description:'workshop data binding',location:'tunis',date:'2027-09-30',price:50,nbPLaces:5},
-    {id:2,title:'Hackathon Esprit',description:'workshop data binding',location:'tunis',date:'2027-09-30',price:50,nbPLaces:5},
+  Events = signal<EventM[]>([])
 
-  ])
+
+  // 1  injecter le service eventService
+   private eventService = inject(EventsService)
+
+   ngOnInit(){
+    this.eventService.getEvents().subscribe({
+      next: (events) => this.Events.set(events),
+      error: (err) => console.error(err),
+      complete: () => console.log('Events fetching completed')
+    })
+   }
+
+   deleteEvent(id: number) {
+    this.eventService.DeleteEvent(id).subscribe({
+      next: () => {
+        this.Events.set(this.Events().filter(e => e.id !== id));
+      },
+      error: (err) => console.error(err),
+      complete: () => console.log('Event deletion completed')
+    });
+   }
 }

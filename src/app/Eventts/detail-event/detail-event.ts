@@ -1,6 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { EventM } from '../../models/event-m';
+import { EventsService } from '../../service/events-service';
 
 @Component({
   selector: 'app-detail-event',
@@ -11,16 +12,27 @@ import { EventM } from '../../models/event-m';
 export class DetailEvent {
 
 
-  Events = signal<EventM[]>([
-    {id:1,title:'workshop Angular',description:'workshop data binding',location:'tunis',date:'2027-09-30',price:50,nbPLaces:5},
-    {id:2,title:'Hackathon Esprit',description:'workshop data binding',location:'tunis',date:'2027-09-30',price:50,nbPLaces:5},
-  ])
+  event = signal<EventM | null>(null)
 
   //1- injecter le service ActivatedRoute pour accéder aux paramètres de l'URL
   private act = inject(ActivatedRoute);
+  private eventService = inject(EventsService);
   //2- recuperer l'id de l'événement à partir de l'URL
   id=this.act.snapshot.params['id']
+
+
+  ngOnInit(){
+    this.eventService.getEventById(this.id).subscribe(
+    (event) => {
+      this.event.set(event);
+      console.log(this.event()),
+      console.log(this.id)
+    }
+  )
+
+  }
+
   //3- recuperer l'événement correspondant à l'id
-  event=this.Events().find(e=>e.id==Number(this.id));
+ // event=this.Events().find(e=>e.id==Number(this.id));
 
 }

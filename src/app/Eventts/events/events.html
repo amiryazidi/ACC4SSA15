@@ -5,6 +5,10 @@
     Liste des événements
   </h2>
 
+    <button [routerLink]="['add']" class="btn btn-success">
+    Ajouter un événement
+  </button>
+
   @if (Events().length != 0) {
 
     <div class="table-responsive">
@@ -71,9 +75,13 @@
               </td>
 
               <td>
-                <button
+                <button  (click)="deleteEvent(e.id)"
                   class="btn btn-primary btn-sm">
-                  🎟️ Réserver
+                  🎟️ Delete
+                </button>
+                  <button  [routerLink]="['update', e.id]"
+                  class="btn btn-primary btn-sm">
+                  🎟️ update
                 </button>
                 <button [routerLink]="['detail' ,e.id ]" class="btn btn-secondary btn-sm">
                   details
